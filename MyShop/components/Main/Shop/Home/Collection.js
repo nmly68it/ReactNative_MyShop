@@ -9,11 +9,11 @@ export default class Collection extends Component {
         const { wrapper, textStyle, imageStyle } = styles;
         return (
             <View style={wrapper}>
-                <View style={{ flex: 1, justifyContent: 'center' }}>
+                <View style={{ height: 50, justifyContent: 'center' }}>
                     <Text style={textStyle}>SPRING COLLECTION</Text>
                 </View>
                 <View style={{ flex: 4 }}>
-                    <Image source={bannerImage} style={imageStyle}/>
+                    <Image source={bannerImage} style={imageStyle} />
                 </View>
             </View>
         );
@@ -25,20 +25,21 @@ const imageHeight = (imageWidth / 933) * 425;
 
 const styles = StyleSheet.create({
     wrapper: {
-        height: height * 0.3,
+        //        height: height * 0.3,
+        width: width - 20,
         backgroundColor: '#FFF',
         margin: 10,
         shadowColor: '#2E272B',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
-        padding: 10, 
+        padding: 10,
         paddingTop: 0
-    }, 
-    textStyle : {
+    },
+    textStyle: {
         fontSize: 20,
         color: '#AFAEAF'
-    }, 
-    imageStyle : {
+    },
+    imageStyle: {
         height: imageHeight,
         width: imageWidth
     }

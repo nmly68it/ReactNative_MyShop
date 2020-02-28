@@ -13,7 +13,7 @@ export default class Category extends Component {
         const { wrapper, textStyle, imageStyle, categoryTitleStyle } = styles;
         return (
             <View style={wrapper} >
-                <View style={{ flex: 1, justifyContent: 'center' }}>
+                <View style={{justifyContent: 'center', height: 50 }}>
                     <Text style={textStyle}>LIST OF CATEGORY</Text>
                 </View>
                 <View style={{ flex: 4 }}>
@@ -40,9 +40,11 @@ const imageHeight = (imageWidth / 933) * 425;
 const styles = StyleSheet.create({
     wrapper: {
         height: height * 0.3,
+        width: width - 20,
         backgroundColor: '#FFF',
         margin: 10,
-        shadowColor: '#2E272B',
+        justifyContent: "center",
+        shadowColor: '#2E272B',        
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
         padding: 10,
