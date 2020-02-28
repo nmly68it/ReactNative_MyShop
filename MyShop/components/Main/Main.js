@@ -16,7 +16,8 @@ import profileIcon from './../../assets/media/temp/profile.png';
 
 const Drawer = createDrawerNavigator();
 
-function CustomDrawerContent(props) {
+function CustomDrawerContent(props, navigation) {
+    
     const {
         container,
         profileIconStyle,
@@ -28,7 +29,7 @@ function CustomDrawerContent(props) {
 
     const beforeLogin = (
         <View style={{ flex: 1 }}>
-            <TouchableOpacity style={btnStyle}>
+            <TouchableOpacity style={btnStyle} onPress={() => props.navigation.navigate('Authentication')}>
                 <Text style={txtStyle}>SIGN IN</Text>
             </TouchableOpacity>
         </View>
@@ -38,13 +39,13 @@ function CustomDrawerContent(props) {
         <View style={{ flex: 1, justifyContent: 'space-between', alignItems: 'center' }}>
             <Text style={userLoginedInName}>Nguyen Minh Ly</Text>
             <View>
-                <TouchableOpacity style={btnLoggedInStyle}>
+                <TouchableOpacity style={btnLoggedInStyle} onPress={() => props.navigation.navigate('OrderHistory')}>
                     <Text style={txtSignedInStyle}>History Order</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={btnLoggedInStyle}>
+                <TouchableOpacity style={btnLoggedInStyle} onPress={() => props.navigation.navigate('ChangeInfo')}>
                     <Text style={txtSignedInStyle}>Change Info</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={btnLoggedInStyle}>
+                <TouchableOpacity style={btnLoggedInStyle} onPress={() => props.navigation.navigate('Authentication')}>
                     <Text style={txtSignedInStyle}>Sign Out</Text>
                 </TouchableOpacity>
             </View>
@@ -52,17 +53,13 @@ function CustomDrawerContent(props) {
         </View>
     );
 
-    const isLoggedIn = true;
+    const isLoggedIn = false;
     const menuUI = isLoggedIn ? afterLogin : beforeLogin;
     return (
         <View style={container}>
             <Image source={profileIcon} style={profileIconStyle} />
             {menuUI}
         </View>
-        // <DrawerContentScrollView {...props}>            
-        //     <DrawerItemList {...props} />            
-        //     <DrawerItem label="Help" onPress={() => alert('Link to help')} />
-        // </DrawerContentScrollView>
     );
 }
 
