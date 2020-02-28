@@ -1,46 +1,141 @@
 import React, { Component } from "react";
-import { Button, View, Text } from 'react-native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Image, View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import {
+    createDrawerNavigator,
+    DrawerContentScrollView,
+    DrawerItemList,
+    DrawerItem,
+} from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 
 import Shop from './Shop/Shop';
-import Menu from './Menu';
 import OrderHistory from './../OrderHistory/OrderHistory';
 import ChangeInfo from './../ChangeInfo/ChangeInfo';
 import Authentication from './../Authentication/Authentication';
+import profileIcon from './../../assets/media/temp/profile.png';
 
 const Drawer = createDrawerNavigator();
 
-export default class Main extends Component{
+function CustomDrawerContent(props) {
+    const {
+        container,
+        profileIconStyle,
+        btnStyle, txtStyle,
+        btnLoggedInStyle,
+        txtSignedInStyle,
+        userLoginedInName
+    } = styles;
+
+    const beforeLogin = (
+        <View style={{ flex: 1 }}>
+            <TouchableOpacity style={btnStyle}>
+                <Text style={txtStyle}>SIGN IN</Text>
+            </TouchableOpacity>
+        </View>
+    );
+
+    const afterLogin = (
+        <View style={{ flex: 1, justifyContent: 'space-between', alignItems: 'center' }}>
+            <Text style={userLoginedInName}>Nguyen Minh Ly</Text>
+            <View>
+                <TouchableOpacity style={btnLoggedInStyle}>
+                    <Text style={txtSignedInStyle}>History Order</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={btnLoggedInStyle}>
+                    <Text style={txtSignedInStyle}>Change Info</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={btnLoggedInStyle}>
+                    <Text style={txtSignedInStyle}>Sign Out</Text>
+                </TouchableOpacity>
+            </View>
+            <View />
+        </View>
+    );
+
+    const isLoggedIn = true;
+    const menuUI = isLoggedIn ? afterLogin : beforeLogin;
+    return (
+        <View style={container}>
+            <Image source={profileIcon} style={profileIconStyle} />
+            {menuUI}
+        </View>
+        // <DrawerContentScrollView {...props}>            
+        //     <DrawerItemList {...props} />            
+        //     <DrawerItem label="Help" onPress={() => alert('Link to help')} />
+        // </DrawerContentScrollView>
+    );
+}
+
+const { width } = Dimensions.get('window');
+export default class Main extends Component {
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         isLoggedIn : false
+    //     }
+    // }
+
     render() {
         return (
-         //   <NavigationContainer>
-                <Drawer.Navigator initialRouteName="Shop">
-                    <Drawer.Screen name="Shop" component={Shop} />
-                    <Drawer.Screen name="OrderHistory" component={OrderHistory} />
-                    <Drawer.Screen name="ChangeInfo" component={ChangeInfo} />
-                    <Drawer.Screen name="Authentication" component={Authentication} />
-
-                    {/* <Drawer.Screen name="Menu" component={Menu} /> */}
-                </Drawer.Navigator>
-         //   </NavigationContainer>
-
-
-            // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            //     <Text>Main</Text>
-            //     <Button
-            //         title="Go to Authentication"
-            //         onPress={() => this.props.navigation.navigate('Authentication')}
-            //     />
-            //     <Button
-            //         title="Go to ChangeInfo"
-            //         onPress={() => this.props.navigation.navigate('ChangeInfo')}
-            //     />
-            //     <Button
-            //         title="Go to OrderHistory"
-            //         onPress={() => this.props.navigation.navigate('OrderHistory')}
-            //     />
-            // </View>
+            <Drawer.Navigator
+                drawerContent={props => CustomDrawerContent(props)}
+                drawerStyle={{
+                    backgroundColor: '#34B089',
+                    width: width / 1.6
+                }}
+            >
+                <Drawer.Screen name="Shop" component={Shop} />
+                <Drawer.Screen name="OrderHistory" component={OrderHistory} />
+                <Drawer.Screen name="ChangeInfo" component={ChangeInfo} />
+                <Drawer.Screen name="Authentication" component={Authentication} />
+            </Drawer.Navigator>
         );
     }
-}    
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        borderRightWidth: 1,
+        borderColor: '#FFF',
+        alignItems: 'center'
+    },
+    profileIconStyle: {
+        width: 150,
+        height: 150,
+        borderRadius: 75,
+        marginVertical: 30
+    },
+    btnStyle: {
+        height: 50,
+        width: (width / 1.6) - 20,
+        backgroundColor: '#FFF',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10
+    },
+    txtStyle: {
+        fontSize: 20,
+        fontFamily: 'Avenir',
+        color: '#34B089'
+    },
+    btnLoggedInStyle: {
+        height: 50,
+        width: (width / 1.6) - 20,
+        backgroundColor: '#FFF',
+        paddingLeft: 15,
+        justifyContent: 'center',
+        borderRadius: 10,
+        marginBottom: 10
+    },
+    txtSignedInStyle: {
+        fontSize: 16,
+        fontFamily: 'Avenir',
+        color: '#34B089'
+    },
+    userLoginedInName: {
+        color: '#FFF',
+        fontSize: 20,
+        fontFamily: 'Avenir'
+    }
+});
