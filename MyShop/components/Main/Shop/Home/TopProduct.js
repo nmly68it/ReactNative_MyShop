@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, View, Text, Dimensions, StyleSheet, ImageBackground } from 'react-native';
+import { Image, View, Text, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
 
 import sp1 from './../../../../assets/media/temp/sp1.jpeg';
@@ -8,10 +8,14 @@ import sp3 from './../../../../assets/media/temp/sp3.jpeg';
 import sp4 from './../../../../assets/media/temp/sp4.jpeg';
 
 export default class TopProduct extends Component {
+    goProductDetail = () => {
+        this.props.navigation.navigate('ProductDetail');
+    }
+
     render() {
         const {
-            container, containerTitle, 
-            titleStyle, bodyStyle, 
+            container, containerTitle,
+            titleStyle, bodyStyle,
             productContainerStyle, productImage,
             productName, productPrice
         } = styles;
@@ -21,31 +25,31 @@ export default class TopProduct extends Component {
                     <Text style={titleStyle}>TOP PRODUCT </Text>
                 </View>
                 <View>
-                <View style={bodyStyle}>
-                    <View style={productContainerStyle}>
-                        <Image source={sp1} style={productImage}/>
-                        <Text style={productName}>PRODUCT NAME</Text>
-                        <Text style={productPrice}>400$</Text>
-                    </View>
-                    <View style={productContainerStyle}>
-                        <Image source={sp2} style={productImage}/>
-                        <Text style={productName}>PRODUCT NAME</Text>
-                        <Text style={productPrice}>250$</Text>
-                    </View>
+                    <View style={bodyStyle}>
+                        <TouchableOpacity style={productContainerStyle} onPress={this.goProductDetail}>
+                            <Image source={sp1} style={productImage} />
+                            <Text style={productName}>PRODUCT NAME</Text>
+                            <Text style={productPrice}>400$</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={productContainerStyle} onPress={this.goProductDetail}>
+                            <Image source={sp2} style={productImage} />
+                            <Text style={productName}>PRODUCT NAME</Text>
+                            <Text style={productPrice}>250$</Text>
+                        </TouchableOpacity>
 
-                    <View style={{height: 10, width}}/>
+                        <View style={{ height: 10, width }} />
 
-                    <View style={productContainerStyle}>
-                        <Image source={sp3} style={productImage}/>
-                        <Text style={productName}>PRODUCT NAME</Text>
-                        <Text style={productPrice}>400$</Text>
+                        <TouchableOpacity style={productContainerStyle} onPress={this.goProductDetail}>
+                            <Image source={sp3} style={productImage} />
+                            <Text style={productName}>PRODUCT NAME</Text>
+                            <Text style={productPrice}>400$</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={productContainerStyle} onPress={this.goProductDetail}>
+                            <Image source={sp4} style={productImage} />
+                            <Text style={productName}>PRODUCT NAME</Text>
+                            <Text style={productPrice}>250$</Text>
+                        </TouchableOpacity>
                     </View>
-                    <View style={productContainerStyle}>
-                        <Image source={sp4} style={productImage}/>
-                        <Text style={productName}>PRODUCT NAME</Text>
-                        <Text style={productPrice}>250$</Text>
-                    </View>
-                </View>
                 </View>
             </View>
         );
@@ -63,43 +67,43 @@ const styles = StyleSheet.create({
         shadowColor: '#2E272B',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2
-    }, 
-    containerTitle : {
+    },
+    containerTitle: {
         height: 50,
         justifyContent: 'center',
         paddingLeft: 10
-    }, 
+    },
     titleStyle: {
-        color: '#D3D3CF', 
-        fontSize: 20        
-    }, 
-    bodyStyle : {
+        color: '#D3D3CF',
+        fontSize: 20
+    },
+    bodyStyle: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         flexWrap: 'wrap',
         paddingBottom: 10
-    },     
-    productContainerStyle : {
-        width: productWidth,         
+    },
+    productContainerStyle: {
+        width: productWidth,
         //marginBottom: 10,
         shadowColor: '#2E272B',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2
     },
-    productImage : {
+    productImage: {
         width: productWidth,
         height: productImageHeight
     },
-    productName : {
+    productName: {
         paddingLeft: 10,
         fontFamily: 'Avenir',
         color: '#D3D3CF',
         fontWeight: '500',
         paddingTop: 10
-        
+
 
     },
-    productPrice : {
+    productPrice: {
         marginBottom: 5,
         paddingLeft: 10,
         fontFamily: 'Avenir',

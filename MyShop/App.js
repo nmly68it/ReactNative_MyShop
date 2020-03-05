@@ -20,9 +20,9 @@ export default function App() {
             }}
         >
             <Stack.Screen name="Main" component={Main} />
-            <Stack.Screen name="OrderHistory" component={OrderHistory} />
+            {/* <Stack.Screen name="OrderHistory" component={OrderHistory} />
             <Stack.Screen name="ChangeInfo" component={ChangeInfo} />
-            <Stack.Screen name="Authentication" component={Authentication} />
+            <Stack.Screen name="Authentication" component={Authentication} /> */}
             
         </Stack.Navigator>
     </NavigationContainer>

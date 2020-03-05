@@ -1,24 +1,29 @@
 import React, { Component } from "react";
 import { View, Text, ScrollView } from 'react-native';
-import Collection from './Collection';
-import Category from './Category';
-import TopProduct from './TopProduct';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeView from './HomeView';
+import ListProduct from './../ListProduct/ListProduct';
+import ProductDetail from './../ProductDetail/ProductDetail';
 
-export default class Home extends Component{
+
+const Stack = createStackNavigator();
+
+
+export default class Home extends Component {
     render() {
         return (
-            <ScrollView style={{ flex: 1, backgroundColor: '#DBDBD8' }}>
-                <Collection/>
-                <Category/>
-                <TopProduct/>
-            </ScrollView>
+            <Stack.Navigator
+                initialRouteName="HomeView"
+                screenOptions={{
+                    headerShown: false
+                }}
+            >
+                <Stack.Screen name="HomeView" component={HomeView} />
+                <Stack.Screen name="ListProduct" component={ListProduct} />
+                <Stack.Screen name="ProductDetail" component={ProductDetail} />
+            </Stack.Navigator>
         );
     }
-}    
+}
 
-// const styles = StyleSheet.create({
-//     tabBarIconStyle: {
-//         width: 30,
-//         height: 30
-//     }
-// });

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, View, Text, Dimensions, StyleSheet, ImageBackground } from 'react-native';
+import { Image, View, Text, Dimensions, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
 
 import littleIcon from './../../../../assets/media/temp/little.jpg';
@@ -9,24 +9,35 @@ import partyIcon from './../../../../assets/media/temp/party.jpg';
 const { height, width } = Dimensions.get('window');
 
 export default class Category extends Component {
+
+    goListProduct = () => {
+        this.props.navigation.navigate('ListProduct');
+    }
+
     render() {
         const { wrapper, textStyle, imageStyle, categoryTitleStyle } = styles;
         return (
             <View style={wrapper} >
-                <View style={{justifyContent: 'center', height: 50 }}>
+                <View style={{ justifyContent: 'center', height: 50 }}>
                     <Text style={textStyle}>LIST OF CATEGORY</Text>
                 </View>
                 <View style={{ flex: 4 }}>
                     <Swiper autoplay={true}>
-                        <ImageBackground source={littleIcon} style={imageStyle}>
-                            <Text style={categoryTitleStyle}>Maxi Dress</Text>
-                        </ImageBackground>
-                        <ImageBackground source={maxiIcon} style={imageStyle}>
-                            <Text style={categoryTitleStyle}>Maxi Dress</Text>
-                        </ImageBackground>
-                        <ImageBackground source={partyIcon} style={imageStyle}>
-                            <Text style={categoryTitleStyle}>Maxi Dress</Text>
-                        </ImageBackground>                        
+                        <TouchableOpacity onPress={this.goListProduct}>
+                            <ImageBackground source={littleIcon} style={imageStyle}>
+                                <Text style={categoryTitleStyle}>Maxi Dress</Text>
+                            </ImageBackground>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.goListProduct}>
+                            <ImageBackground source={maxiIcon} style={imageStyle}>
+                                <Text style={categoryTitleStyle}>Maxi Dress</Text>
+                            </ImageBackground>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.goListProduct}>
+                            <ImageBackground source={partyIcon} style={imageStyle}>
+                                <Text style={categoryTitleStyle}>Maxi Dress</Text>
+                            </ImageBackground>
+                        </TouchableOpacity>
                     </Swiper>
                 </View>
             </View>
@@ -44,7 +55,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         margin: 10,
         justifyContent: "center",
-        shadowColor: '#2E272B',        
+        shadowColor: '#2E272B',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
         padding: 10,
