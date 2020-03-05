@@ -1,12 +1,26 @@
 import React, { Component } from "react";
-import { Button, View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import SearchView from './SearchView';
+import ProductDetail from '../ProductDetail/ProductDetail';
 
-export default class Search extends Component{
+const Stack = createStackNavigator();
+
+
+export default class Search extends Component {
     render() {
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Search Component</Text>               
-            </View>
+            <Stack.Navigator
+                initialRouteName="SearchView"
+                screenOptions={{
+                    headerShown: false
+                }}
+            >
+                <Stack.Screen name="SearchView" component={SearchView} />
+                <Stack.Screen name="ProductDetail" component={ProductDetail} />
+            </Stack.Navigator>
         );
     }
-}    
+}
+

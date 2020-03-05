@@ -8,7 +8,7 @@ import sp3 from './../../../../assets/media/temp/sp3.jpeg';
 import sp4 from './../../../../assets/media/temp/sp4.jpeg';
 
 export default class TopProduct extends Component {
-    goProductDetail = () => {
+    goToProductDetail = () => {
         this.props.navigation.navigate('ProductDetail');
     }
 
@@ -26,12 +26,12 @@ export default class TopProduct extends Component {
                 </View>
                 <View>
                     <View style={bodyStyle}>
-                        <TouchableOpacity style={productContainerStyle} onPress={this.goProductDetail}>
+                        <TouchableOpacity style={productContainerStyle} onPress={this.goToProductDetail}>
                             <Image source={sp1} style={productImage} />
                             <Text style={productName}>PRODUCT NAME</Text>
                             <Text style={productPrice}>400$</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={productContainerStyle} onPress={this.goProductDetail}>
+                        <TouchableOpacity style={productContainerStyle} onPress={this.goToProductDetail}>
                             <Image source={sp2} style={productImage} />
                             <Text style={productName}>PRODUCT NAME</Text>
                             <Text style={productPrice}>250$</Text>
@@ -39,12 +39,12 @@ export default class TopProduct extends Component {
 
                         <View style={{ height: 10, width }} />
 
-                        <TouchableOpacity style={productContainerStyle} onPress={this.goProductDetail}>
+                        <TouchableOpacity style={productContainerStyle} onPress={this.goToProductDetail}>
                             <Image source={sp3} style={productImage} />
                             <Text style={productName}>PRODUCT NAME</Text>
                             <Text style={productPrice}>400$</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={productContainerStyle} onPress={this.goProductDetail}>
+                        <TouchableOpacity style={productContainerStyle} onPress={this.goToProductDetail}>
                             <Image source={sp4} style={productImage} />
                             <Text style={productName}>PRODUCT NAME</Text>
                             <Text style={productPrice}>250$</Text>
