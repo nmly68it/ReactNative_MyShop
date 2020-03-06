@@ -12,6 +12,7 @@ export default class ListProduct extends Component {
     }
 
     goToProductDetail = () => {
+        
         this.props.navigation.push('ProductDetail');
     }
 
