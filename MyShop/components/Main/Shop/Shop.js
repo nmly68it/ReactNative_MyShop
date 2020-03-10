@@ -28,7 +28,8 @@ export default class Shop extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            productTypes: []
+            productTypes: [],
+            topProducts: []
         });
     }
 
@@ -40,9 +41,10 @@ export default class Shop extends Component {
         fetch('http://192.168.1.54/api/')
             .then(res => res.json())
             .then(resJSON => {
-                const { type } = resJSON;
+                const { type, product } = resJSON;
                 this.setState({
-                    productTypes: type
+                    productTypes: type,
+                    topProducts: product
                 });
             });
     }
@@ -60,7 +62,7 @@ export default class Shop extends Component {
 
     render() {
         const { navigation } = this.props;
-        const { productTypes } = this.state;
+        const { productTypes, topProducts } = this.state;
         const { tabBarIconStyle } = styles;
         //console.log("Product type : " + productTypes);
         return (
@@ -105,7 +107,7 @@ export default class Shop extends Component {
                 >
                     {/* <Tab.Screen name="Home" component={Home} /> */}
                     <Tab.Screen name="Home">
-                        {props => <Home {...props} productTypes={productTypes} />}
+                        {props => <Home {...props} productTypes={productTypes} topProducts={topProducts}/>}
                     </Tab.Screen>
 
                     <Tab.Screen name="Cart" component={Cart} />

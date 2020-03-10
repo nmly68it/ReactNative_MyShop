@@ -12,7 +12,7 @@ const Stack = createStackNavigator();
 
 export default class Home extends Component {
     render() {
-        const { productTypes } = this.props;        
+        const { productTypes, topProducts } = this.props;        
         return (
             <Stack.Navigator
                 initialRouteName="HomeView"
@@ -21,7 +21,7 @@ export default class Home extends Component {
                 }}
             >
                 <Stack.Screen name="HomeView">
-                    {props => <HomeView {...props} productTypes={productTypes} />}
+                    {props => <HomeView {...props} productTypes={productTypes} topProducts={topProducts}/>}
                 </Stack.Screen>
                 <Stack.Screen name="ListProduct" component={ListProduct} />
                 <Stack.Screen name="ProductDetail" component={ProductDetail} />

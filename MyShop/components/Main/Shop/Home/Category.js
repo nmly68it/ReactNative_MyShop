@@ -2,10 +2,6 @@ import React, { Component } from "react";
 import { Image, View, Text, Dimensions, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
 
-import littleIcon from './../../../../assets/media/temp/little.jpg';
-import maxiIcon from './../../../../assets/media/temp/maxi.jpg';
-import partyIcon from './../../../../assets/media/temp/party.jpg';
-
 const { height, width } = Dimensions.get('window');
 const url = 'http://192.168.1.54/api/images/type/';
 
@@ -17,8 +13,7 @@ export default class Category extends Component {
 
     render() {
         const { wrapper, textStyle, imageStyle, categoryTitleStyle } = styles;
-        const { productTypes } = this.props;
-        console.log("Data3: " + productTypes);
+        const { productTypes } = this.props;        
         return (
             <View style={wrapper} >
                 <View style={{ justifyContent: 'center', height: 50 }}>
