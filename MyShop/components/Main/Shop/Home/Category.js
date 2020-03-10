@@ -7,6 +7,7 @@ import maxiIcon from './../../../../assets/media/temp/maxi.jpg';
 import partyIcon from './../../../../assets/media/temp/party.jpg';
 
 const { height, width } = Dimensions.get('window');
+const url = 'http://192.168.1.54/api/images/type/';
 
 export default class Category extends Component {
 
@@ -16,6 +17,8 @@ export default class Category extends Component {
 
     render() {
         const { wrapper, textStyle, imageStyle, categoryTitleStyle } = styles;
+        const { productTypes } = this.props;
+        console.log("Data3: " + productTypes);
         return (
             <View style={wrapper} >
                 <View style={{ justifyContent: 'center', height: 50 }}>
@@ -23,21 +26,15 @@ export default class Category extends Component {
                 </View>
                 <View style={{ flex: 4 }}>
                     <Swiper autoplay={true}>
-                        <TouchableOpacity onPress={this.goListProduct}>
-                            <ImageBackground source={littleIcon} style={imageStyle}>
-                                <Text style={categoryTitleStyle}>Maxi Dress</Text>
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={this.goListProduct}>
-                            <ImageBackground source={maxiIcon} style={imageStyle}>
-                                <Text style={categoryTitleStyle}>Maxi Dress</Text>
-                            </ImageBackground>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={this.goListProduct}>
-                            <ImageBackground source={partyIcon} style={imageStyle}>
-                                <Text style={categoryTitleStyle}>Maxi Dress</Text>
-                            </ImageBackground>
-                        </TouchableOpacity>
+                        {
+                            productTypes.map(item => (
+                                <TouchableOpacity onPress={this.goListProduct} key={item.id}>
+                                    <ImageBackground source={{url: `${url}${item.image}`}} style={imageStyle}>
+                                        <Text style={categoryTitleStyle}>{item.name}</Text>
+                                    </ImageBackground>
+                                </TouchableOpacity>
+                            ))
+                        }
                     </Swiper>
                 </View>
             </View>

@@ -25,9 +25,28 @@ const { height } = Dimensions.get('window');
 const Tab = createBottomTabNavigator();
 
 export default class Shop extends Component {
+    constructor(props) {
+        super(props);
+        this.state = ({
+            productTypes: []
+        });
+    }
+
     openMenu = () => {
         this.props.navigation.openDrawer();
     }
+
+    componentDidMount() {
+        fetch('http://192.168.1.54/api/')
+            .then(res => res.json())
+            .then(resJSON => {
+                const { type } = resJSON;
+                this.setState({
+                    productTypes: type
+                });
+            });
+    }
+
 
     // getTabImageIcon = ({ imageIcon }) => {
     //     return (<Image
@@ -40,8 +59,10 @@ export default class Shop extends Component {
     // getTabBarIcon = ({route}) {}
 
     render() {
-        let { navigation } = this.props;
-        let { tabBarIconStyle } = styles;
+        const { navigation } = this.props;
+        const { productTypes } = this.state;
+        const { tabBarIconStyle } = styles;
+        //console.log("Product type : " + productTypes);
         return (
             <View style={{ flex: 1 }}>
                 <Header navigation={navigation} />
@@ -82,7 +103,11 @@ export default class Shop extends Component {
                         }
                     }}
                 >
-                    <Tab.Screen name="Home" component={Home} />
+                    {/* <Tab.Screen name="Home" component={Home} /> */}
+                    <Tab.Screen name="Home">
+                        {props => <Home {...props} productTypes={productTypes} />}
+                    </Tab.Screen>
+
                     <Tab.Screen name="Cart" component={Cart} />
                     <Tab.Screen name="Search" component={Search} />
                     <Tab.Screen name="Contact" component={Contact} />
