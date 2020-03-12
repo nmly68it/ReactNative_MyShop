@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Image, View, Text, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, View, Text, Dimensions, StyleSheet, TouchableOpacity, FlatList, SafeAreaView } from 'react-native';
 
 const url = 'http://192.168.1.54/api/images/product/';
 export default class TopProduct extends Component {
-    goToProductDetail(product){
+    goToProductDetail(product) {
         this.props.navigation.navigate('ProductDetail', {
             product: product
         });
@@ -22,19 +22,20 @@ export default class TopProduct extends Component {
                 <View style={containerTitle}>
                     <Text style={titleStyle}>TOP PRODUCT </Text>
                 </View>
-                <View>
-                    <View style={bodyStyle}>
-                        {
-                            topProducts.map(product => (
-                                <TouchableOpacity style={productContainerStyle} onPress={() => this.goToProductDetail(product)} key={product.id}>
-                                    <Image source={{ uri: `${url}${product.images[0].replace('.jpeg', '.jpg')}` }} style={productImage} />
-                                    <Text style={productName}>{product.name.toUpperCase()}</Text>
-                                    <Text style={productPrice}>{product.price}$</Text>
-                                </TouchableOpacity>
-                            ))
-                        }
-                    </View>
-                </View>
+                <FlatList
+                    contentContainerStyle={bodyStyle}
+                    horizontal={false}
+                    data={topProducts}
+                    numColumns={2}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity style={productContainerStyle} onPress={() => this.goToProductDetail(item)} key={item.id}>
+                            <Image source={{ uri: `${url}${item.images[0].replace('.jpeg', '.jpg')}` }} style={productImage} />
+                            <Text style={productName}>{item.name.toUpperCase()}</Text>
+                            <Text style={productPrice}>{item.price}$</Text>
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={item => item.id}
+                />
             </View>
         );
     }
@@ -62,14 +63,17 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     bodyStyle: {
-        flexDirection: 'row',
+        //flexDirection: 'row',
+        // flex: 1,
         justifyContent: 'space-around',
-        flexWrap: 'wrap',
-        paddingBottom: 10
+        alignItems: "center",
+        // flexWrap: 'wrap',
+        paddingBottom: 10,
     },
     productContainerStyle: {
         width: productWidth,
-        //marginBottom: 10,
+        marginHorizontal: 7,
+        marginBottom: 10,
         shadowColor: '#2E272B',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2
@@ -94,3 +98,19 @@ const styles = StyleSheet.create({
         color: '#C92A62'
     }
 });
+
+
+
+{/* <View>
+<View style={bodyStyle}>
+    {
+        topProducts.map(product => (
+            <TouchableOpacity style={productContainerStyle} onPress={() => this.goToProductDetail(product)} key={product.id}>
+                <Image source={{ uri: `${url}${product.images[0].replace('.jpeg', '.jpg')}` }} style={productImage} />
+                <Text style={productName}>{product.name.toUpperCase()}</Text>
+                <Text style={productPrice}>{product.price}$</Text>
+            </TouchableOpacity>
+        ))
+    }
+</View>
+</View> */}

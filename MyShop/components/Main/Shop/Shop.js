@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Image, Dimensions, StyleSheet } from 'react-native';
+import { View, Image, Dimensions, StyleSheet, ImageBackground, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from './Home/Home';
@@ -7,7 +7,7 @@ import Cart from './Cart/Cart';
 import Search from './Search/Search';
 import Contact from './Contact/Contact';
 import Header from './Header';
-
+import global from './../../global';
 
 import homeIconSelected from './../../../assets/media/appIcon/home.png';
 import homeIcon from './../../../assets/media/appIcon/home0.png';
@@ -29,8 +29,10 @@ export default class Shop extends Component {
         super(props);
         this.state = ({
             productTypes: [],
-            topProducts: []
+            topProducts: [],
+            cartList: []
         });
+        global.addProductToCart = this.addProductToCart.bind(this);
     }
 
     openMenu = () => {
@@ -49,6 +51,11 @@ export default class Shop extends Component {
             });
     }
 
+    addProductToCart(product) {
+        this.setState({
+            cartList: this.state.cartList.concat({product, quantity: 1})
+        });
+    }
 
     // getTabImageIcon = ({ imageIcon }) => {
     //     return (<Image
@@ -62,9 +69,30 @@ export default class Shop extends Component {
 
     render() {
         const { navigation } = this.props;
-        const { productTypes, topProducts } = this.state;
+        const { productTypes, topProducts, cartList } = this.state;
         const { tabBarIconStyle } = styles;
         //console.log("Product type : " + productTypes);
+
+        const badgeCount = cartList.length > 0 ? (<View
+            style={{
+                // On React Native < 0.57 overflow outside of parent will not work on Android, see https://git.io/fhLJ8
+                position: 'absolute',
+                right: -6,
+                top: -3,
+                backgroundColor: '#24ACF2',
+                borderRadius: 7,
+                width: 14,
+                height: 14,
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}
+        >
+            <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>
+                {cartList.length}
+            </Text>
+        </View>
+        ) : null;
+
         return (
             <View style={{ flex: 1 }}>
                 <Header navigation={navigation} />
@@ -78,11 +106,14 @@ export default class Shop extends Component {
                                     style={tabBarIconStyle}
                                 />);
                             } if (route.name === 'Cart') {
-                                return (<Image
+                                return (<ImageBackground
                                     source={focused ? cartIconSelected : cartIcon}
                                     resizeMode='contain'
-                                    style={tabBarIconStyle}
-                                />);
+                                    style={tabBarIconStyle}>
+                                        
+                                    {badgeCount}
+                                </ImageBackground>
+                                );
                             } if (route.name === 'Search') {
                                 return (<Image
                                     source={focused ? searchIconSelected : searchIcon}
@@ -107,10 +138,12 @@ export default class Shop extends Component {
                 >
                     {/* <Tab.Screen name="Home" component={Home} /> */}
                     <Tab.Screen name="Home">
-                        {props => <Home {...props} productTypes={productTypes} topProducts={topProducts}/>}
+                        {props => <Home {...props} productTypes={productTypes} topProducts={topProducts} />}
                     </Tab.Screen>
 
-                    <Tab.Screen name="Cart" component={Cart} />
+                    <Tab.Screen name="Cart">
+                        {props => <Cart {...props} cartList={cartList} />}
+                    </Tab.Screen>
                     <Tab.Screen name="Search" component={Search} />
                     <Tab.Screen name="Contact" component={Contact} />
                 </Tab.Navigator>
