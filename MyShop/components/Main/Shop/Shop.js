@@ -36,6 +36,9 @@ export default class Shop extends Component {
             cartList: []
         });
         global.addProductToCart = this.addProductToCart.bind(this);
+        global.incrQuantity = this.incrQuantity.bind(this);
+        global.decrQuantity = this.decrQuantity.bind(this);
+        global.removeCartProduct = this.removeCartProduct.bind(this);
     }
 
     openMenu = () => {
@@ -52,7 +55,7 @@ export default class Shop extends Component {
                 });
             });
         getCart().then(cartList => this.setState({
-            cartList : cartList
+            cartList: cartList
         }));
 
     }
@@ -61,9 +64,46 @@ export default class Shop extends Component {
         this.setState(
             {
                 cartList: this.state.cartList.concat({ product, quantity: 1 })
-            }, 
+            },
             () => saveCart(this.state.cartList)
-        );    
+        );
+    }
+
+    incrQuantity(productId) {
+        const newCart = this.state.cartList.map(item => {
+            if (item.product.id !== productId) {
+                return item;
+            }
+            return { product: item.product, quantity: item.quantity + 1 }
+        });
+        this.setState({
+            cartList: newCart
+        },
+            () => saveCart(this.state.cartList)
+        );
+    }
+
+    decrQuantity(productId) {
+        const newCart = this.state.cartList.map(item => {
+            if (item.product.id !== productId) {
+                return item;
+            }
+            return { product: item.product, quantity: item.quantity - 1 }
+        });
+        this.setState({
+            cartList: newCart
+        },
+            () => saveCart(this.state.cartList)
+        );
+    }
+
+    removeCartProduct(productId) {
+        const newCart = this.state.cartList.filter(item => item.product.id !== productId);
+        this.setState({
+            cartList: newCart
+        },
+            () => saveCart(this.state.cartList)
+        );
     }
 
     // getTabImageIcon = ({ imageIcon }) => {

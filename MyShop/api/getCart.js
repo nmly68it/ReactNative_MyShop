@@ -9,6 +9,15 @@ const getCart = async () => {
     } catch (error) {
         return [];
     }
+
+    // try {
+    //     await AsyncStorage.removeItem('@cart');
+    //     return true;
+    // }
+    // catch(exception) {
+    //     return false;
+    // }
+
 };
 
 export default getCart;
