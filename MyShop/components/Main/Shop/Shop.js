@@ -8,6 +8,9 @@ import Search from './Search/Search';
 import Contact from './Contact/Contact';
 import Header from './Header';
 import global from './../../global';
+import initData from './../../../api/initData';
+import saveCart from './../../../api/saveCart';
+import getCart from './../../../api/getCart';
 
 import homeIconSelected from './../../../assets/media/appIcon/home.png';
 import homeIcon from './../../../assets/media/appIcon/home0.png';
@@ -40,8 +43,7 @@ export default class Shop extends Component {
     }
 
     componentDidMount() {
-        fetch('http://192.168.1.54/api/')
-            .then(res => res.json())
+        initData()
             .then(resJSON => {
                 const { type, product } = resJSON;
                 this.setState({
@@ -49,12 +51,19 @@ export default class Shop extends Component {
                     topProducts: product
                 });
             });
+        getCart().then(cartList => this.setState({
+            cartList : cartList
+        }));
+
     }
 
     addProductToCart(product) {
-        this.setState({
-            cartList: this.state.cartList.concat({product, quantity: 1})
-        });
+        this.setState(
+            {
+                cartList: this.state.cartList.concat({ product, quantity: 1 })
+            }, 
+            () => saveCart(this.state.cartList)
+        );    
     }
 
     // getTabImageIcon = ({ imageIcon }) => {
@@ -110,7 +119,7 @@ export default class Shop extends Component {
                                     source={focused ? cartIconSelected : cartIcon}
                                     resizeMode='contain'
                                     style={tabBarIconStyle}>
-                                        
+
                                     {badgeCount}
                                 </ImageBackground>
                                 );
