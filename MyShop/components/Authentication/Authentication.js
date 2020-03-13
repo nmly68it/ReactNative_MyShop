@@ -3,6 +3,8 @@ import { Image, View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions 
 
 import icLogo from './../../assets/media/appIcon/ic_logo.png';
 import icBack from './../../assets/media/appIcon/back_white.png';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 
 const { height, width } = Dimensions.get('window');
 
@@ -13,7 +15,7 @@ export default class Authentication extends Component {
             isSignIn: true
         }
     }
-
+    
     openSignInPage = () => {
         this.setState({
             isSignIn: true
@@ -36,32 +38,10 @@ export default class Authentication extends Component {
         const {
             container, iconStyle, row1,
             titleStyle, controlStyle, signInStyle,
-            styleUpStyle, inactiveStyle, activeStyle,
-            inputStyle, signInNowStyle, signInNowTextStyle
+            styleUpStyle, inactiveStyle, activeStyle        
         } = styles;
 
-        const signInUI = (
-            <View>
-                <TextInput style={inputStyle} placeholder='Enter your email' />
-                <TextInput style={inputStyle} placeholder='Enter your password' />
-                <TouchableOpacity style={signInNowStyle}>
-                    <Text style={signInNowTextStyle}>SIGN IN NOW</Text>
-                </TouchableOpacity>
-            </View>
-        );
-
-        const signUpUI = (
-            <View>
-                <TextInput style={inputStyle} placeholder='Enter your name' />
-                <TextInput style={inputStyle} placeholder='Enter your email' />
-                <TextInput style={inputStyle} placeholder='Enter your password' />
-                <TextInput style={inputStyle} placeholder='Re-enter your password' />
-                <TouchableOpacity style={signInNowStyle}>
-                    <Text style={signInNowTextStyle}>SIGN UP NOW</Text>
-                </TouchableOpacity>
-            </View>
-        );
-        const mainPage = this.state.isSignIn ? signInUI : signUpUI;
+        const mainPage = this.state.isSignIn ? <SignIn/> : <SignUp/>;
         return (
             <View style={container}>
                 <View style={row1}>
@@ -137,25 +117,5 @@ const styles = StyleSheet.create({
     },
     activeStyle: {
         color: '#3AC48C'
-    },
-    inputStyle: {
-        height: 50,
-        backgroundColor: '#FFF',
-        marginBottom: 10,
-        borderRadius: 30,
-        paddingLeft: 30
-    },
-    signInNowStyle: {
-        height: 50,
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#FFF',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    signInNowTextStyle: {
-        color: '#FFF',
-        fontFamily: 'Avenir',
-        fontWeight: '500'
     }
 });

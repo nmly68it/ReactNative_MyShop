@@ -53,7 +53,7 @@ function CustomDrawerContent(props, navigation) {
         </View>
     );
 
-    const isLoggedIn = true;
+    const isLoggedIn = false;
     const menuUI = isLoggedIn ? afterLogin : beforeLogin;
     return (
         <View style={container}>
