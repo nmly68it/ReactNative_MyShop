@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import register from './../../api/register';
 
 export default class SignUp extends Component {
@@ -14,9 +14,47 @@ export default class SignUp extends Component {
     }
 
     registerUser = () => {
-        const {name, email, password, rePassword} = this.state;
+        const { name, email, password, rePassword } = this.state;
         register(email, name, password)
-        .then(res => console.log(res));
+            .then(res => {
+                if (res === 'THANH_CONG'){
+                    this.onSuccess();
+                }else {
+                    this.onFail();
+                }
+            });
+
+    }
+
+    onSuccess() {
+        Alert.alert(
+            'Notice',
+            'Sign up successfully',
+            [            
+                { text: 'OK', onPress: () => console.log('OK Pressed') },
+            ],
+            { cancelable: false },
+        );
+    }
+
+    onFail() {
+        Alert.alert(
+            'Notice',
+            'Email has been used by other',
+            [            
+                { text: 'OK', onPress: () => this.onReset() },
+            ],
+            { cancelable: false },
+        );
+    }
+
+    onReset(){
+        this.setState({
+            //name: '',
+            email: ''
+            //password: '',
+            //rePassword: ''
+        });
     }
 
     render() {
