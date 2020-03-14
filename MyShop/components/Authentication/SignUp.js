@@ -11,7 +11,7 @@ export default class SignUp extends Component {
             password: '',
             rePassword: ''
         }
-    }
+    }     
 
     registerUser = () => {
         const { name, email, password, rePassword } = this.state;
@@ -31,7 +31,7 @@ export default class SignUp extends Component {
             'Notice',
             'Sign up successfully',
             [            
-                { text: 'OK', onPress: () => console.log('OK Pressed') },
+                { text: 'OK', onPress: this.props.goToSignIn },
             ],
             { cancelable: false },
         );
@@ -42,13 +42,13 @@ export default class SignUp extends Component {
             'Notice',
             'Email has been used by other',
             [            
-                { text: 'OK', onPress: () => this.onReset() },
+                { text: 'OK', onPress: this.onReset },
             ],
             { cancelable: false },
         );
     }
 
-    onReset(){
+    onReset = () => {
         this.setState({
             //name: '',
             email: ''

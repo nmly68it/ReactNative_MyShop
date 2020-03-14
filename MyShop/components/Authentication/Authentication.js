@@ -15,7 +15,13 @@ export default class Authentication extends Component {
             isSignIn: true
         }
     }
-    
+
+    goToSignIn() {
+        this.setState({
+            isSignIn : true
+        });
+    }
+
     openSignInPage = () => {
         this.setState({
             isSignIn: true
@@ -40,8 +46,9 @@ export default class Authentication extends Component {
             titleStyle, controlStyle, signInStyle,
             styleUpStyle, inactiveStyle, activeStyle        
         } = styles;
+        const  {navigation} = this.props;
 
-        const mainPage = this.state.isSignIn ? <SignIn/> : <SignUp/>;
+        const mainPage = this.state.isSignIn ? <SignIn goBack={this.goBack.bind(this)}/> : <SignUp goToSignIn={this.goToSignIn.bind(this)}/>;
         return (
             <View style={container}>
                 <View style={row1}>

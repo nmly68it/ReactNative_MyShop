@@ -120,7 +120,6 @@ export default class Shop extends Component {
         const { navigation } = this.props;
         const { productTypes, topProducts, cartList } = this.state;
         const { tabBarIconStyle } = styles;
-        //console.log("Product type : " + productTypes);
 
         const badgeCount = cartList.length > 0 ? (<View
             style={{

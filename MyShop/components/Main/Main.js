@@ -7,6 +7,7 @@ import {
     DrawerItem,
 } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
+import global from './../global';
 
 import Shop from './Shop/Shop';
 import OrderHistory from './../OrderHistory/OrderHistory';
@@ -14,10 +15,10 @@ import ChangeInfo from './../ChangeInfo/ChangeInfo';
 import Authentication from './../Authentication/Authentication';
 import profileIcon from './../../assets/media/temp/profile.png';
 
+
 const Drawer = createDrawerNavigator();
 
-function CustomDrawerContent(props, navigation) {
-    
+function CustomDrawerContent(props, user) {
     const {
         container,
         profileIconStyle,
@@ -37,7 +38,7 @@ function CustomDrawerContent(props, navigation) {
 
     const afterLogin = (
         <View style={{ flex: 1, justifyContent: 'space-between', alignItems: 'center' }}>
-            <Text style={userLoginedInName}>Nguyen Minh Ly</Text>
+            <Text style={userLoginedInName}>{user ? user.name : ''}</Text>
             <View>
                 <TouchableOpacity style={btnLoggedInStyle} onPress={() => props.navigation.navigate('OrderHistory')}>
                     <Text style={txtSignedInStyle}>History Order</Text>
@@ -52,11 +53,9 @@ function CustomDrawerContent(props, navigation) {
             <View />
         </View>
     );
-
-    const isLoggedIn = false;
-    const menuUI = isLoggedIn ? afterLogin : beforeLogin;
+    const menuUI = user ? afterLogin : beforeLogin;    
     return (
-        <View style={container}>
+        <View style={container}>            
             <Image source={profileIcon} style={profileIconStyle} />
             {menuUI}
         </View>
@@ -65,17 +64,24 @@ function CustomDrawerContent(props, navigation) {
 
 const { width } = Dimensions.get('window');
 export default class Main extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         isLoggedIn : false
-    //     }
-    // }
+    constructor(props) {
+        super(props);
+        this.state = {
+            user : null
+        }
+        global.onSignIn = this.onSignIn.bind(this);
+    }
+
+    onSignIn(user){
+        this.setState({
+            user
+        });
+    }
 
     render() {
         return (
             <Drawer.Navigator
-                drawerContent={props => CustomDrawerContent(props)}
+                drawerContent={props => CustomDrawerContent(props, this.state.user)}
                 drawerStyle={{
                     backgroundColor: '#34B089',
                     width: width / 1.6
