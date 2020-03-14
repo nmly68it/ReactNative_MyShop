@@ -1,4 +1,5 @@
 import { AsyncStorage } from 'react-native';
+
 const getCart = async () => {
     try {    
         const cartList = await AsyncStorage.getItem('@cart');
@@ -9,15 +10,6 @@ const getCart = async () => {
     } catch (error) {
         return [];
     }
-
-    // try {
-    //     await AsyncStorage.removeItem('@cart');
-    //     return true;
-    // }
-    // catch(exception) {
-    //     return false;
-    // }
-
 };
 
 export default getCart;

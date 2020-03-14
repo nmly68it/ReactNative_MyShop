@@ -8,13 +8,13 @@ import {
 } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import global from './../global';
+import checkLogin from './../../api/checkLogin';
 
 import Shop from './Shop/Shop';
 import OrderHistory from './../OrderHistory/OrderHistory';
 import ChangeInfo from './../ChangeInfo/ChangeInfo';
 import Authentication from './../Authentication/Authentication';
 import profileIcon from './../../assets/media/temp/profile.png';
-
 
 const Drawer = createDrawerNavigator();
 
@@ -62,6 +62,8 @@ function CustomDrawerContent(props, user) {
     );
 }
 
+
+const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im5tbHk2OGl0QGdtYWlsLmNvbSIsImlhdCI6MTU4NDE3MjgwMCwiZXhwaXJlIjoxNTg0MzQ1NjAwfQ.q-yCAuAHgq136t5HuieeflTrJ_ajdMhY2RzdC9VS7tw';
 const { width } = Dimensions.get('window');
 export default class Main extends Component {
     constructor(props) {
@@ -70,6 +72,12 @@ export default class Main extends Component {
             user : null
         }
         global.onSignIn = this.onSignIn.bind(this);
+    }
+
+    componentDidMount(){
+        checkLogin(token)
+        .then(res => console.log("CHECK_LOGIN: " + res))
+        .catch(err => console.log(err));
     }
 
     onSignIn(user){
