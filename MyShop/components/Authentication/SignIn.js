@@ -3,7 +3,6 @@ import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-nativ
 import signIn from './../../api/signIn';
 import global from './../global';
 import saveToken from './../../api/saveToken';
-import getToken from './../../api/getToken';
 
 export default class SignIn extends Component {
     constructor(props) {
@@ -14,11 +13,6 @@ export default class SignIn extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     getToken()
-    //         .then(token => console.log("Tocken: " + token));
-    // }
-
     onSignIn = () => {        
         const { email, password } = this.state;
         signIn(email, password)
@@ -26,10 +20,10 @@ export default class SignIn extends Component {
             .catch(err => console.log(err));
     }
 
-    onLoginSuccess(res) {
+    onLoginSuccess(res) {        
+        saveToken(res.token);
         global.onSignIn(res.user);
         this.props.goBack();
-        saveToken(res.token);
     }
 
     render() {

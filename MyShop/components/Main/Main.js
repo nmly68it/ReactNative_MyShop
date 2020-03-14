@@ -15,6 +15,8 @@ import OrderHistory from './../OrderHistory/OrderHistory';
 import ChangeInfo from './../ChangeInfo/ChangeInfo';
 import Authentication from './../Authentication/Authentication';
 import profileIcon from './../../assets/media/temp/profile.png';
+import deleteToken from './../../api/deleteToken';
+import getToken from './../../api/getToken';
 
 const Drawer = createDrawerNavigator();
 
@@ -46,45 +48,57 @@ function CustomDrawerContent(props, user) {
                 <TouchableOpacity style={btnLoggedInStyle} onPress={() => props.navigation.navigate('ChangeInfo')}>
                     <Text style={txtSignedInStyle}>Change Info</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={btnLoggedInStyle} onPress={() => props.navigation.navigate('Authentication')}>
+                {/* <TouchableOpacity style={btnLoggedInStyle} onPress={() => props.navigation.navigate('Authentication')}> */}
+                <TouchableOpacity style={btnLoggedInStyle} onPress={global.onSignOut}>
                     <Text style={txtSignedInStyle}>Sign Out</Text>
                 </TouchableOpacity>
             </View>
             <View />
         </View>
     );
-    const menuUI = user ? afterLogin : beforeLogin;    
+    const menuUI = user ? afterLogin : beforeLogin;
     return (
-        <View style={container}>            
+        <View style={container}>
             <Image source={profileIcon} style={profileIconStyle} />
             {menuUI}
         </View>
     );
 }
 
-
-const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im5tbHk2OGl0QGdtYWlsLmNvbSIsImlhdCI6MTU4NDE3MjgwMCwiZXhwaXJlIjoxNTg0MzQ1NjAwfQ.q-yCAuAHgq136t5HuieeflTrJ_ajdMhY2RzdC9VS7tw';
 const { width } = Dimensions.get('window');
 export default class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user : null
+            user: null
         }
         global.onSignIn = this.onSignIn.bind(this);
+        global.onSignOut = this.onSignOut.bind(this);
     }
 
-    componentDidMount(){
-        checkLogin(token)
-        .then(res => console.log("CHECK_LOGIN: " + res))
-        .catch(err => console.log(err));
+    componentDidMount() {
+        getToken().then(token => {
+            if (token !== null){                
+                checkLogin(token)
+                    .then(res => this.onSignIn(res.user))
+                    .catch(err => console.log(err));
+            }
+        });
     }
 
-    onSignIn(user){
+    onSignIn(user) {
         this.setState({
             user
         });
     }
+
+    onSignOut = () => {
+        this.setState({
+            user: null
+        }
+        );
+        deleteToken();
+    };
 
     render() {
         return (

@@ -3,12 +3,12 @@ import { AsyncStorage } from 'react-native';
 const getToken = async () => {
     try {    
         const token = await AsyncStorage.getItem('@token');
-        if (token !== null) {         
+        if (token !== null) {
             return token;
         }        
-        return '';
+        return null;
     } catch (error) {
-        return '';
+        return null;
     }
 };
 
