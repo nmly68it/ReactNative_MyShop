@@ -2,11 +2,31 @@ import React, { Component } from "react";
 import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import icLogo from './../../../assets/media/appIcon/ic_logo.png';
 import icMenu from './../../../assets/media/appIcon/ic_menu.png';
+import searchProduct from './../../../api/searchProduct';
 
 const { height } = Dimensions.get('window');
 export default class Header extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            txtSearch : ''
+        }
+    }
+
     openMenu = () => {
         this.props.navigation.openDrawer();
+    }
+
+    goSearch = () => {
+        const {navigation} = this.props;
+        navigation.navigate('Search');
+    }
+
+    searchProduct = () => {
+        const {txtSearch} = this.state;
+        searchProduct(txtSearch)
+        .then(productList => console.log(productList))
+        .catch(err => console.log(err));
     }
 
     render() {
@@ -21,8 +41,11 @@ export default class Header extends Component {
                     <Image source={icLogo} style={iconStyle}/>
                 </View>
                 <TextInput 
+                    onFocus={this.goSearch}
                     style={textInput}
+                    onChangeText={text => this.setState({txtSearch : text})}
                     placeholder='What do you want buy?'
+                    onSubmitEditing={this.searchProduct}
                 />
             </View>
         );
