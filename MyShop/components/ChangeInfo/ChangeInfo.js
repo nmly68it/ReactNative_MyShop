@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    View, TouchableOpacity, Text, Image, StyleSheet, TextInput, Alert
+    View, TouchableOpacity, Text, Image, StyleSheet, TextInput, Alert   
 } from 'react-native';
 import backSpecial from './../../assets/media/appIcon/backs.png';
 import getToken from './../../api/getToken';

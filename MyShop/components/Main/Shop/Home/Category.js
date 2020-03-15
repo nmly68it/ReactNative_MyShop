@@ -7,8 +7,8 @@ const url = 'http://192.168.1.54/api/images/type/';
 
 export default class Category extends Component {
 
-    goListProduct = () => {
-        this.props.navigation.navigate('ListProduct');
+    goListProduct(category) {    
+        this.props.navigation.navigate('ListProduct', {category});
     }
 
     render() {
@@ -23,7 +23,7 @@ export default class Category extends Component {
                     <Swiper autoplay={true}>
                         {
                             productTypes.map(item => (
-                                <TouchableOpacity onPress={this.goListProduct} key={item.id}>
+                                <TouchableOpacity onPress={() => this.goListProduct(item)} key={item.id}>
                                     <ImageBackground source={{url: `${url}${item.image}`}} style={imageStyle}>
                                         <Text style={categoryTitleStyle}>{item.name}</Text>
                                     </ImageBackground>
