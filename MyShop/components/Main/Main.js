@@ -46,7 +46,7 @@ function CustomDrawerContent(props, user) {
                 <TouchableOpacity style={btnLoggedInStyle} onPress={() => props.navigation.navigate('OrderHistory')}>
                     <Text style={txtSignedInStyle}>History Order</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={btnLoggedInStyle} onPress={() => props.navigation.navigate('ChangeInfo')}>
+                <TouchableOpacity style={btnLoggedInStyle} onPress={() => props.navigation.navigate('ChangeInfo', {user})}>
                     <Text style={txtSignedInStyle}>Change Info</Text>
                 </TouchableOpacity>
                 {/* <TouchableOpacity style={btnLoggedInStyle} onPress={() => props.navigation.navigate('Authentication')}> */}
