@@ -17,6 +17,7 @@ import Authentication from './../Authentication/Authentication';
 import profileIcon from './../../assets/media/temp/profile.png';
 import deleteToken from './../../api/deleteToken';
 import getToken from './../../api/getToken';
+import refreshToken from './../../api/refreshToken';
 
 const Drawer = createDrawerNavigator();
 
@@ -84,6 +85,13 @@ export default class Main extends Component {
                     .catch(err => console.log(err));
             }
         });
+        
+        setInterval(() => {
+            getToken().then(token => {
+                refreshToken(token);                
+            });            
+        }, 
+        1000 * 60 * 10);
     }
 
     onSignIn(user) {
