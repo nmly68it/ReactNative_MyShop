@@ -8,9 +8,10 @@ import ProductDetail from '../ProductDetail/ProductDetail';
 const Stack = createStackNavigator();
 
 
-export default class Search extends Component {
+export default class Search extends Component {        
     render() {
         return (
+            
             <Stack.Navigator
                 initialRouteName="SearchView"
                 screenOptions={{

@@ -4,5 +4,6 @@ module.exports = {
     decrQuantity : null,
     removeCartProduct : null,
     onSignIn : null,
-    onSignOut : null
+    onSignOut : null,
+    setProductSearchResult : null
 };

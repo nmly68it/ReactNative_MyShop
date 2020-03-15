@@ -63,7 +63,7 @@ export default class ListProduct extends Component {
                     <Text style={txtPrice}>{item.price}$</Text>
                     <Text style={txtMaterial}>Material {item.material}</Text>
                     <View style={lastRowInfo}>
-                        <Text style={txtColor}>{item.color}</Text>
+                        <Text style={txtColor}>Color {item.color}</Text>
                         <View style={{ backgroundColor: 'cyan', width: 16, height: 16, borderRadius: 8 }} />
                         <TouchableOpacity onPress={() => this.goToProductDetail(item)}>
                             <Text style={txtShowDetail}>SHOW DETAILS</Text>

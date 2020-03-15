@@ -3,6 +3,7 @@ import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity, Dimensions 
 import icLogo from './../../../assets/media/appIcon/ic_logo.png';
 import icMenu from './../../../assets/media/appIcon/ic_menu.png';
 import searchProduct from './../../../api/searchProduct';
+import global from './../../global';
 
 const { height } = Dimensions.get('window');
 export default class Header extends Component {
@@ -25,7 +26,7 @@ export default class Header extends Component {
     searchProduct = () => {
         const {txtSearch} = this.state;
         searchProduct(txtSearch)
-        .then(productList => console.log(productList))
+        .then(productList => global.setProductSearchResult(productList))
         .catch(err => console.log(err));
     }
 
